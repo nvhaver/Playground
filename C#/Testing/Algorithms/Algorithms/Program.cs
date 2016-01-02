@@ -1,4 +1,5 @@
-﻿using Algorithms.LinkedListType;
+﻿using Algorithms.DoubleLinkedListType;
+using Algorithms.LinkedListType;
 using System;
 
 namespace Algorithms
@@ -7,7 +8,7 @@ namespace Algorithms
     {
         public static void Main(string[] args)
         {
-            testLinkedList();
+            testDoubleLinkedList();
             Console.ReadKey();
         }
 
@@ -30,6 +31,32 @@ namespace Algorithms
             list.Print();
             list.RemoveFirst("test");
             list.Print();
+        }
+
+        private static void testDoubleLinkedList()
+        {
+            DoubleLinkedList<String> list = new DoubleLinkedList<String>();
+            list.Print();
+            list.PrintReverse();
+            list.Add("a");
+            list.Add("test");
+            list.Add("a");
+            list.Add("This");
+            list.Add("is");
+            list.Add("a");
+            list.Add("test");
+            list.Add("a");
+            list.Print();
+            list.PrintReverse();
+            list.RemoveFirst("a");
+            list.Print();
+            list.PrintReverse();
+            list.RemoveAll("a");
+            list.Print();
+            list.PrintReverse();
+            list.RemoveFirst("test");
+            list.Print();
+            list.PrintReverse();
         }
     }
 }
