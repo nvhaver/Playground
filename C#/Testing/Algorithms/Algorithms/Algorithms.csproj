@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BinaryTreeType\BinaryTree.cs" />
+    <Compile Include="BinaryTreeType\BinaryTreeItem.cs" />
     <Compile Include="DoubleLinkedListType\DoubleLinkedList.cs" />
     <Compile Include="DoubleLinkedListType\DoubleLinkedListItem.cs" />
     <Compile Include="LinkedListType\LinkedListItem.cs" />

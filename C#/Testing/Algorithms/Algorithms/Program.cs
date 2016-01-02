@@ -1,5 +1,6 @@
 ﻿using Algorithms.DoubleLinkedListType;
 using Algorithms.LinkedListType;
+using Algorithms.BinaryTreeType;
 using System;
 
 namespace Algorithms
@@ -8,7 +9,7 @@ namespace Algorithms
     {
         public static void Main(string[] args)
         {
-            testDoubleLinkedList();
+            testBinaryTree();
             Console.ReadKey();
         }
 
@@ -57,6 +58,24 @@ namespace Algorithms
             list.RemoveFirst("test");
             list.Print();
             list.PrintReverse();
+        }
+
+        private static void testBinaryTree()
+        {
+            BinaryTree<int> tree = new BinaryTree<int>();
+            tree.AddRecur(8);
+            tree.AddRecur(6);
+            tree.AddRecur(4);
+            tree.AddRecur(2);
+            tree.AddRecur(6);
+            tree.AddRecur(9);
+            tree.AddRecur(12);
+            tree.AddRecur(1);
+            tree.AddRecur(15);
+            tree.AddRecur(3);
+            tree.AddRecur(1);
+
+            tree.Print();
         }
     }
 }
