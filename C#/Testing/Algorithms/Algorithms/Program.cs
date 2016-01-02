@@ -1,16 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Algorithms.LinkedListType;
+using System;
 
 namespace Algorithms
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello world!");
+            testLinkedList();
+            Console.ReadKey();
+        }
+
+        private static void testLinkedList()
+        {
+            LinkedList<String> list = new LinkedList<String>();
+            list.Print();
+            list.Add("a");
+            list.Add("test");
+            list.Add("a");
+            list.Add("This");
+            list.Add("is");
+            list.Add("a");
+            list.Add("test");
+            list.Add("a");
+            list.Print();
+            list.RemoveFirst("a");
+            list.Print();
+            list.RemoveAll("a");
+            list.Print();
+            list.RemoveFirst("test");
+            list.Print();
         }
     }
 }
