@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chapter2\DemeterLaw.cs" />
     <Compile Include="Chapter2\Enums.cs" />
     <Compile Include="Chapter2\StructVSClass.cs" />
     <Compile Include="Chapter2\Unsafe.cs" />
