@@ -32,7 +32,7 @@ namespace CSharp_Cert_70_483_Prep.Chapter2
         {
             c.x = 5;
         }
-        public static void Main()
+        public static void RunTest()
         {
             TheStruct a = new TheStruct();
             TheClass b = new TheClass();
