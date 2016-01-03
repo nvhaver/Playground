@@ -8,8 +8,8 @@ namespace CSharp_Cert_70_483_Prep
         static void Main(string[] args)
         {
             //Unsafe.ContainsUnsafe();
-            Enums.DaysOperation();
-            Enums.DayFlagsOperation();
+            //Enums.DaysOperation();
+            //Enums.DayFlagsOperation();
             Console.ReadKey();
         }
     }
