@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ThinkBot.Entities.BoundLocEntities;
 using ThinkBot.Entities.BoundLocEntities.Buildings;
 using System.Threading;
+using ThinkBot.Logging;
 
 namespace ThinkBot.Entities.CharacterEntities
 {
@@ -31,18 +32,22 @@ namespace ThinkBot.Entities.CharacterEntities
         }
 
         private string generateName()
-        {   // Generates a new name for the character
-            return "frank";
+        {   // Generates a new name for the character, should implement code to generate a new name. Maybe in the future the dude can pick his own name, or the parents name him.
+            String name = "frank";
+            Logger.LogNameChange(ID, name);
+            return name;
         }
 
         public void DeSpawnDude()
         {   // sets the character invisible
             Visible = false;
+            Logger.WriteVisibleLog(ID, Visible);
         }
 
         public void SpawnDude()
         {   // sets the character visible
             Visible = true;
+            Logger.WriteVisibleLog(ID, Visible);
         }
 
         public void EditSpeed(int amount)
@@ -57,22 +62,28 @@ namespace ThinkBot.Entities.CharacterEntities
             }
             else
             {
-                MovementSpeed = MovementSpeed - amount;
+                MovementSpeed -= amount;
             }
+
+            Logger.WriteMovespeedChangeLog(ID, MovementSpeed);
+
         }
 
         internal void PerformPriority(List<Building> inGameBuildings)
         {
             if (Rest < 5)
             {
+                Logger.WritePriorityLog(ID, "restplace"); // there should be a better design to fix all the duplacaté :)
                 GoRest(FindClosestRestplace(inGameBuildings));
             }
             else if (Resources > 8)
             {
+                Logger.WritePriorityLog(ID, "Warehouse");
                 DeliverResources(FindClosestWarehouse(inGameBuildings));
             }
             else
             {
+                Logger.WritePriorityLog(ID, "resource");
                 GatherResources(FindClosestResource(inGameBuildings));
             }
         }
@@ -81,6 +92,7 @@ namespace ThinkBot.Entities.CharacterEntities
 
         private void GatherResources(ResourceHub resource)
         {
+            Logger.WriteActivityLog(ID, " gathering resource from "+resource.ToString());
             MoveTo(resource);
             resource.EnterBuilding(this);
             Resources++;
@@ -93,6 +105,7 @@ namespace ThinkBot.Entities.CharacterEntities
 
         private void DeliverResources(Warehouse warehouse)
         {
+            Logger.WriteActivityLog(ID, " delivering to " + warehouse.ToString());
             MoveTo(warehouse);
             warehouse.EnterBuilding(this);
             Resources--;
@@ -105,6 +118,7 @@ namespace ThinkBot.Entities.CharacterEntities
 
         private void GoRest(House house)
         {
+            Logger.WriteActivityLog(ID, " moving to " + house.ToString());
             MoveTo(house);
             house.EnterBuilding(this);
             Rest += 5;
@@ -142,6 +156,7 @@ namespace ThinkBot.Entities.CharacterEntities
                 }
             }
 
+            Logger.WriteActivityLog(ID, " found closest restplace " + closestHouse.ToString());
             return closestHouse;
         }
 
@@ -174,7 +189,7 @@ namespace ThinkBot.Entities.CharacterEntities
                     }
                 }
             }
-
+            Logger.WriteActivityLog(ID, " found closest resource " + closestResource.ToString());
             return closestResource;
         }
 
@@ -207,13 +222,13 @@ namespace ThinkBot.Entities.CharacterEntities
                     }
                 }
             }
-
+            Logger.WriteActivityLog(ID, " found closest warehouse " + closestWarehouse.ToString());
             return closestWarehouse;
         }
 
         public void MoveTo(Building building)
         {
-            EntityMover.MoveTo(building.Location, Location, MovementSpeed);
+            DudeMover.MoveTo(building.Location, this);
         }
 
         public override string ToString()

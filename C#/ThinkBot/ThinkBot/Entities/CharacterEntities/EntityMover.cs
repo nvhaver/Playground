@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace ThinkBot.Entities.CharacterEntities
 {
-    public static class EntityMover
+    public static class DudeMover
     { // should be performed in another thread, so other threads can then utilise the entity's props to update the gui or do calculations.
 
 
 
-        public static void MoveTo(Location targetLoc, Location currentLoc, int movementspeed)
+        public static void MoveTo(Location targetLoc, Dude dude)
         {
+            Location currentLoc = dude.Location;
+            int movementspeed = dude.MovementSpeed;
             double[] modifiers = CalcMovementModifiers(targetLoc, currentLoc);
             double xModifier = modifiers[0];
             double yModifier = modifiers[1];
@@ -48,8 +50,7 @@ namespace ThinkBot.Entities.CharacterEntities
                 {
                     break;
                 }
-
-                System.Threading.Thread.Sleep(1000 - moveSpeed);
+                
             }
 
 
