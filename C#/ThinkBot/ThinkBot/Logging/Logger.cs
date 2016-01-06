@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +13,17 @@ namespace ThinkBot.Logging
         private static void WriteToLogfile(string log)
         {
             // Write a log into the logging file, when this happens, the database should also be updated to reflect this change.
-            // A timestamp should be put before any log (YYYY:MM:DD HH:MM:SS)
-            Console.WriteLine(DateTime.Now +"   "+ log);
+            Console.WriteLine(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) +"   "+ log);
         }
 
         internal static void LogNameChange(int id, string newName)
         {
             WriteToLogfile("Dude " + id + " received a namechange to : " + newName);
+        }
+
+        internal static void WriteAnnouncementLog(string arg)
+        {
+            WriteToLogfile(arg);
         }
 
         internal static void WriteVisibleLog(int id, bool visible)

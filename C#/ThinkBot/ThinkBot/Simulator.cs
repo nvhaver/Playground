@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ThinkBot.Entities.BoundLocEntities;
 using ThinkBot.Entities.BoundLocEntities.Buildings;
 using ThinkBot.Entities.CharacterEntities;
+using ThinkBot.Logging;
 
 namespace ThinkBot
 {
@@ -21,6 +22,7 @@ namespace ThinkBot
 
         public Simulator()
         {
+            Logger.WriteAnnouncementLog("THE SIMULATION HAS STARTED");
             Roads = new List<Roadpoint>();
             Buildings = new List<Building>();
             Dudes = new List<Dude>();

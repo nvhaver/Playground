@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ThinkBot.Logging;
 
 namespace ThinkBot.Entities.CharacterEntities
 {
@@ -16,17 +17,21 @@ namespace ThinkBot.Entities.CharacterEntities
 
         public static void MoveTo(Location targetLoc, Dude dude)
         {
-            Location currentLoc = dude.Location;
             int movementspeed = dude.MovementSpeed;
-            double[] modifiers = CalcMovementModifiers(targetLoc, currentLoc);
+            double[] modifiers = CalcMovementModifiers(targetLoc, dude.Location);
             double xModifier = modifiers[0];
             double yModifier = modifiers[1];
-            PerformMovement(targetLoc, currentLoc, xModifier, yModifier, movementspeed);
+            PerformMovement(targetLoc, dude, xModifier, yModifier, movementspeed);
         }
         
 
-        public static void PerformMovement(Location targetLoc, Location currentLoc, double xMod, double yMod, int moveSpeed)
+        public static void PerformMovement(Location targetLoc, Dude dude, double xMod, double yMod, int moveSpeed)
         {
+
+            // REWRITE THIS SO A DUDE CAN MOVE USING SMART PATHFINDING
+
+            Location currentLoc = dude.Location;
+
             while (true)
             {
                 if ((currentLoc.CordX + xMod > targetLoc.CordX) || (currentLoc.CordX + xMod < targetLoc.CordX))
@@ -46,10 +51,13 @@ namespace ThinkBot.Entities.CharacterEntities
                 { // dude has arrived, target loc becomes dude loc (this is when he's close than 1 count)
                     currentLoc.CordY = targetLoc.CordY;
                 }
-                if((currentLoc.CordX == targetLoc.CordX) && (currentLoc.CordY == targetLoc.CordY))
+                if ((currentLoc.CordX == targetLoc.CordX) && (currentLoc.CordY == targetLoc.CordY))
                 {
                     break;
                 }
+
+                Logger.WriteActivityLog(3, "MOVED " + currentLoc.ToString());
+                Thread.Sleep(901 - moveSpeed);
                 
             }
 
@@ -59,52 +67,15 @@ namespace ThinkBot.Entities.CharacterEntities
 
 
         public static double[] CalcMovementModifiers(Location targetLoc, Location currentLoc)
-        {   // basically this class will calculate the movement modifiers, 
-            // so the MoveTo class doesn't have to calculate it all the time and can be used without to much resource impact.
-            // returns the modifiers in following order : {x , y}
+        {
+            double xModifier =0, yModifier =0;
+            // This code was shit. It should've given 1 modifier that either outputs 1 or -1, 
+            // the other one 0.xx... or -0.xx... relative to it.
+            // Basically this and perform movement only make it possible to move in straight lines.
+            // Has to be rewritten to be a true pathfinder
 
-            double xModifier = 0;
-            double yModifier = 0;
-
-            double tarX = targetLoc.CordX;
-            double tarY = targetLoc.CordY;
-            double curX = currentLoc.CordX;
-            double curY = currentLoc.CordY;
-
-            double xDif = tarX - curX;
-            double yDif = tarY - curY;
-
-            // check which axis is the biggest, set the difference of the other axis relative to 1 movement in the dominant axis.
-
-            if (Math.Pow(xDif, 2) > Math.Pow(yDif, 2))
-            { // if the X distance is bigger, then proportionally adjust the y distance per 1 x.
-                xModifier = 1;
-                yModifier = Math.Sqrt((Math.Pow(yDif, 2))) / Math.Sqrt((Math.Pow(xDif, 2)));
-            }
-            else if (Math.Pow(xDif, 2) > Math.Pow(yDif, 2))
-            {
-                yModifier = 1;
-                xModifier = Math.Sqrt((Math.Pow(xDif, 2))) / Math.Sqrt((Math.Pow(yDif, 2)));
-            }
-            else if (xDif == yDif)
-            {
-                xModifier = 0;
-                yModifier = 0;
-            }
-
-            // if a modifier is supposed to be negative, then do it now.
-
-            if (xDif < 0)
-            {
-                xModifier = -xModifier;
-            }
-            if (yDif < 0)
-            {
-                yModifier = -yModifier;
-            }
 
             // return both the modifiers.
-
             return new double[]{ xModifier, yModifier};
         }
     }

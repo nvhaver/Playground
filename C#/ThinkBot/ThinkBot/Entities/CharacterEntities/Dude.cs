@@ -71,6 +71,8 @@ namespace ThinkBot.Entities.CharacterEntities
 
         internal void PerformPriority(List<Building> inGameBuildings)
         {
+            Logger.WriteActivityLog(ID, " is figuring out where to go next...");
+
             if (Rest < 5)
             {
                 Logger.WritePriorityLog(ID, "restplace"); // there should be a better design to fix all the duplacaté :)
@@ -92,7 +94,7 @@ namespace ThinkBot.Entities.CharacterEntities
 
         private void GatherResources(ResourceHub resource)
         {
-            Logger.WriteActivityLog(ID, " gathering resource from "+resource.ToString());
+            Logger.WriteActivityLog(ID, " is gathering resource from "+resource.ToString());
             MoveTo(resource);
             resource.EnterBuilding(this);
             Resources++;
@@ -105,7 +107,7 @@ namespace ThinkBot.Entities.CharacterEntities
 
         private void DeliverResources(Warehouse warehouse)
         {
-            Logger.WriteActivityLog(ID, " delivering to " + warehouse.ToString());
+            Logger.WriteActivityLog(ID, " is delivering to " + warehouse.ToString());
             MoveTo(warehouse);
             warehouse.EnterBuilding(this);
             Resources--;
@@ -118,7 +120,7 @@ namespace ThinkBot.Entities.CharacterEntities
 
         private void GoRest(House house)
         {
-            Logger.WriteActivityLog(ID, " moving to " + house.ToString());
+            Logger.WriteActivityLog(ID, " is moving to " + house.ToString());
             MoveTo(house);
             house.EnterBuilding(this);
             Rest += 5;
@@ -229,6 +231,7 @@ namespace ThinkBot.Entities.CharacterEntities
         public void MoveTo(Building building)
         {
             DudeMover.MoveTo(building.Location, this);
+            Logger.WriteActivityLog(ID, " has entered building " + building.ToString());
         }
 
         public override string ToString()
