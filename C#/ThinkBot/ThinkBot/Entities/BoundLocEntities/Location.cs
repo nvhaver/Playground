@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ThinkBot.Entities.BoundLocEntities
 {
+    // Has to be rewritten to be a collection of blocks.
     public class Location
     {
         public double CordX { get; set; }

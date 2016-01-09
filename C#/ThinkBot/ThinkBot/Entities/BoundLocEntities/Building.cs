@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace ThinkBot.Entities.BoundLocEntities
 {
-    public class Building : IConnectable
+    public class Building
     {
         public Location Location { get; set; }
         public String Name { get; set; }
-        public Roadpoint Roadpoint { get; set; }
         public Spawn Spawn { get; set; }
 
         public Building()
@@ -24,11 +23,6 @@ namespace ThinkBot.Entities.BoundLocEntities
             Location = location;
             Name = name;
             Spawn = new Spawn(location);
-        }
-
-        public virtual void AddRoadpoint(Location location)
-        {
-            Roadpoint = new Roadpoint(location, Location);
         }
 
         public virtual void EnterBuilding(Dude dude)
