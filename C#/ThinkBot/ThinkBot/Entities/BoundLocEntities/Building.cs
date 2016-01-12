@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThinkBot.Mapping;
 
 namespace ThinkBot.Entities.BoundLocEntities
 {
@@ -18,11 +19,11 @@ namespace ThinkBot.Entities.BoundLocEntities
             Name = "Nonplaced";
         }
 
-        public Building(Location location, String name)
+        public Building(Location location, LocationBlock spawnBlockLocation, String name)
         {
             Location = location;
             Name = name;
-            Spawn = new Spawn(location);
+            Spawn = new Spawn(spawnBlockLocation);
         }
 
         public virtual void EnterBuilding(Dude dude)
@@ -38,7 +39,7 @@ namespace ThinkBot.Entities.BoundLocEntities
 
         new public virtual String ToString()
         {
-            return Name + " " + Location.ToString();
+            return Name;
         }
     }
 }

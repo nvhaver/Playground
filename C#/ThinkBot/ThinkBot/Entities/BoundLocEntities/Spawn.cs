@@ -10,32 +10,27 @@ namespace ThinkBot.Entities.BoundLocEntities
 {
     public class Spawn : IMapInteractable
     {
-        public Location Location { get; set; }
+        public LocationBlock PositionBlock { get; set; }
         public HashSet<CharacterEntity> CharactersInside { get; set; }
 
 
-        public Spawn(Location location)
+        public Spawn(LocationBlock positionBlock)
         {
-            // has to be rewritten to be compatible with blocks
-        }
-
-        public Spawn(double x, double y)
-        { 
-            // has to be rewritten to be compatible with blocks
+            PositionBlock = positionBlock;
         }
 
         public void EnterSpawn(CharacterEntity character)
-        { // Makes a dude "enter" the spawn. Makes him invisible untill he leaves.
-          // Given dude is stored in the hashset.
-          // use this through the building this spawn is attached to
+        { // Makes a character "enter" the spawn. Makes it invisible untill it leaves.
+          // Given character is stored in the hashset.
+          // use this through the object this spawn is attached to
             character.DeSpawnCharacter();
             CharactersInside.Add(character);
         }
 
         public void LeaveSpawn(CharacterEntity character)
-        { // Makes a dude "leave" the spawn. Makes him visible when he leaves.
-          // Given dude is removed from the hashset.
-          // use this through the building this spawn is attached to
+        { // Makes a character "leave" the spawn. Makes it visible when it leaves.
+          // Given character is removed from the hashset.
+          // use this through the object this spawn is attached to
             character.SpawnCharacter();
             CharactersInside.Remove(character);
             character.Spawn = null;

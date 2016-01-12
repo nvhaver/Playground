@@ -20,7 +20,6 @@ namespace ThinkBot.Entities.CharacterEntities
         public int Rest { get; set; }           // amount of rest this dude has
         public bool Visible { get; set; }
         public int MovementSpeed { get; set; }
-        public Spawn Spawn { get; set; }
 
 
         public Dude(int id, LocationBlock currentBlock)
@@ -152,7 +151,7 @@ namespace ThinkBot.Entities.CharacterEntities
                 }
                 else
                 {
-                    if (closestHouse.Location.IsFurtherThan(Location, house.Location))
+                    if (closestHouse.Location.IsFurtherThan(CurrentBlock, house.Location))
                     {
                         closestHouse = house;
                     }
@@ -186,7 +185,7 @@ namespace ThinkBot.Entities.CharacterEntities
                 }
                 else
                 {
-                    if (closestResource.Location.IsFurtherThan(Location, reHub.Location))
+                    if (closestResource.Location.IsFurtherThan(CurrentBlock, reHub.Location))
                     {
                         closestResource = reHub;
                     }
@@ -219,7 +218,7 @@ namespace ThinkBot.Entities.CharacterEntities
                 }
                 else
                 {
-                    if (closestWarehouse.Location.IsFurtherThan(Location, waho.Location))
+                    if (closestWarehouse.Location.IsFurtherThan(CurrentBlock, waho.Location))
                     {
                         closestWarehouse = waho;
                     }
@@ -237,7 +236,7 @@ namespace ThinkBot.Entities.CharacterEntities
 
         public override string ToString()
         {
-            return Name + " R : " + Resources + " Rest : " + Rest + " " + Location.ToString();
+            return Name + " R : " + Resources + " Rest : " + Rest + " " + CurrentBlock.ToString();
         }
 
         public void PerformInteraction()

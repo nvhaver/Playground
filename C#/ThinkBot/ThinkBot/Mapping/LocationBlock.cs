@@ -8,11 +8,11 @@ namespace ThinkBot.Mapping
 {
     public class LocationBlock
     {
-        public int PosX { get; set; }
-        public int PosY { get; set; }
+        public short PosX { get; set; }
+        public short PosY { get; set; }
         public bool IsPassable { get; set; }
 
-        public LocationBlock(bool isPassable, int posX, int posY)
+        public LocationBlock(bool isPassable, short posX, short posY)
         {
             IsPassable = isPassable;
             PosX = posX;

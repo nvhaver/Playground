@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThinkBot.Mapping;
 
 namespace ThinkBot.Entities.BoundLocEntities.Buildings
 {
@@ -11,7 +12,7 @@ namespace ThinkBot.Entities.BoundLocEntities.Buildings
         public int Resources { get; set; }
         public bool IsEmpty { get; set; }
 
-        public ResourceHub(Location location, String name, int amountOfResources):base(location,name)
+        public ResourceHub(Location location, LocationBlock spawnBlockLocation, String name, int amountOfResources):base(location, spawnBlockLocation, name)
         {
             Resources = amountOfResources;
             IsEmpty = false;
